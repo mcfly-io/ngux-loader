@@ -1,17 +1,18 @@
 {
-  "name": "file-loader",
-  "version": "0.8.5",
-  "author": "Tobias Koppers @sokra",
+  "name": "ngux-loader",
+  "version": "0.0.1",
+  "author": "Avi Haiat @thaiat",
   "description": "file loader module for webpack",
   "files": [
-    "index.js"
+    "index.js",
+    "bin"
   ],
   "dependencies": {
     "loader-utils": "~0.2.5"
   },
   "devDependencies": {
-    "should": "~4.0.4",
-    "mocha": "~1.21.3"
+    "should": "~8.1.1",
+    "mocha": "~2.3.4"
   },
   "scripts": {
     "test": "mocha -R spec"
