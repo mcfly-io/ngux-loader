@@ -2,6 +2,15 @@
 var path = require('path');
 var fs = require('fs');
 
+var getOutputPath = function(filename, outputDir, extension) {
+    var res = path.join(outputDir, path.basename(filename));
+    if (extension) {
+        var oldextension = path.extname(res);
+        res = res.replace(oldextension, extension);
+    }
+    return res;
+};
+
 module.exports = function(content) {
     this.cacheable();
     var callback = this.async();
@@ -19,11 +28,12 @@ module.exports = function(content) {
             callback(err);
             return;
         }
-        var htmlPath = resourcePath.replace('.ngux', '.html');
-        var jsPath = resourcePath.replace('.ngux', '.js');
+        var htmlPath = getOutputPath(resourcePath, outputDir, '.html');
+        var jsPath = getOutputPath(resourcePath, outputDir, '.js');
+
         this.addDependency(path.resolve(htmlPath));
         this.addDependency(path.resolve(jsPath));
-        fs.readFile(htmlPath, 'utf8', function(err, htmlContent) {
+        fs.readFile(htmlPath, 'utf-8', function(err, htmlContent) {
             callback(null, htmlContent);
         });
     }.bind(this));
