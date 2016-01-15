@@ -33,7 +33,11 @@ function test(resourcePath, cb) {
 describe('ngux-loader', function() {
     it('should process file correctly', function(done) {
         test('./test/fixture/file.simple.ngux', function(err, jsContent) {
-            assert(err === null);
+            if (err) {
+                done(err);
+                return;
+            }
+
             assert(jsContent !== null);
             //console.log('Error', err);
             //console.log('Success', jsContent);
