@@ -1,5 +1,5 @@
 language: node_js
-sudo: false
+sudo: true
 node_js:
   - 0.12
   - 4
@@ -8,6 +8,10 @@ cache:
    directories:
      - node_modules
      - bower_components
+
+before_install:
+  - sudo apt-get -qq update
+  - sudo apt-get install -y mono-complete
 
 before_script:
 
