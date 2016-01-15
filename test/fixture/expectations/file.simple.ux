@@ -1,3 +1,3 @@
-<Panel ux:Class="MyApp" >
-	<Text Value="{var0}" />
+<Panel ux:Class="MyApp">
+    <Text Value="{var0}" />
 </Panel>
