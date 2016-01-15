@@ -46,6 +46,7 @@ function run(resourcePath, cb) {
 
 function processAndCheck(filename) {
     var pathFixture = './test/fixture';
+    var pathExpectations = './test/fixture/expectations';
     var pathResults = './test/fixture/results';
     var resourcePath = path.join(pathFixture, filename + '.ngux');
     var htmlContent;
@@ -75,7 +76,7 @@ function processAndCheck(filename) {
         })
         .then(function() {
             // return expected files
-            return readFiles(pathFixture, filename);
+            return readFiles(pathExpectations, filename);
         })
         .then(function(files) {
             // assign expected files
