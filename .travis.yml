@@ -11,7 +11,7 @@ cache:
 
 before_install:
   - sudo apt-get -qq update
-  - sudo apt-get install -y mono-complete
+  - sudo apt-get install -y mono-runtime
 
 before_script:
 
