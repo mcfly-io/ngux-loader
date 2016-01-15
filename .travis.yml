@@ -1,17 +1,22 @@
 language: node_js
-sudo: true
+sudo: false
 node_js:
   - 0.12
   - 4
+
+addons:
+  apt:
+    packages:
+    - mono-complete
 
 cache:
    directories:
      - node_modules
      - bower_components
 
-before_install:
-  - sudo apt-get -qq update
-  - sudo apt-get install -y mono-runtime
+#before_install:
+#  - sudo apt-get -qq update
+#  - sudo apt-get install -y mono-complete
 
 before_script:
 
