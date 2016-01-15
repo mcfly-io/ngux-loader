@@ -7,8 +7,14 @@ module.exports = function(content) {
     var callback = this.async();
     var folder = path.resolve(__dirname, 'bin', 'ngux', 'NGUX.exe');
     var resourcePath = this.resourcePath;
+
     var exec = require('child_process').exec;
-    exec('mono ' + folder + ' ' + resourcePath + ' ' + path.dirname(this.resourcePath), function(err, stdout, stderr) {
+    var outputDir = path.dirname(this.resourcePath);
+
+    if (this.options.outputDir) {
+        outputDir = this.options.outputDir;
+    }
+    exec('mono ' + folder + ' ' + resourcePath + ' ' + outputDir, function(err, stdout, stderr) {
         if (err) {
             callback(err);
             return;

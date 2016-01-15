@@ -1,6 +1,6 @@
 'use strict';
 
-var should = require('should');
+//var should = require('should');
 var assert = require('assert');
 var nguxLoader = require('../');
 
@@ -12,6 +12,9 @@ function run(resourcePath, cb) {
         cacheable: function() {},
         async: function() {
             return cb;
+        },
+        options: {
+            outputDir: './test/fixture/results'
         },
         addDependency: function() {
 
