@@ -12,7 +12,7 @@ var html = require("html-loader!./file.ngux");
 or
 
 webpack.config.js
-```json
+```js
 {
     test: /\.ngux$/,
     loader: 'html-loader!ngux-loader'
