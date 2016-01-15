@@ -1,4 +1,5 @@
 # file loader for webpack
+[![Build Status](https://travis-ci.org/mcfly-io/ngux-loader.svg?branch=master)](https://travis-ci.org/mcfly-io/ngux-loader)
 
 ## Usage
 
