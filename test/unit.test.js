@@ -38,4 +38,14 @@ describe('ngux-loader', function() {
                 done();
             });
     });
+
+    it('with ux-weather should succeed', function(done) {
+        var filename = 'ux-weather';
+        testHelper.processAndCheck(filename)
+            .then(function() {
+                done();
+            })
+            .catch(done);
+    });
+
 });

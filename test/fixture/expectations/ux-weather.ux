@@ -1,0 +1,15 @@
+<StackPanel ux:Class="Weather" Width="43%" Alignment="TopRight" Height="100%">
+    <Text Value="{TOD}" Font="NunitoBold" FontSize="19" TextColor="#ffffff80" Margin="0,14,0,0" />
+    <Text Value="{Temp}" Font="NunitoLight" FontSize="32" TextColor="#fff" Margin="0,0,0,14" Alignment="CenterLeft" />
+    <StackPanel Alignment="TopLeft">
+        <Body Value="{Summary}" FontSize="26" />
+        <Body Value="{Wind}" />
+        <Body Value="{Humidity}" />
+        <ExitingAnimation>
+            <Move Y="0.5" RelativeTo="ParentSize" Easing="Linear" />
+        </ExitingAnimation>
+        <EnteringAnimation>
+            <Move Y="0.5" RelativeTo="ParentSize" Easing="Linear" />
+        </EnteringAnimation>
+    </StackPanel>
+</StackPanel>
