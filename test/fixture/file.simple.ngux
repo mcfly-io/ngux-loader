@@ -1,0 +1,3 @@
+<Panel ng:Selector="MyApp">
+    <Text [Value]="myvalue" />
+</Panel>

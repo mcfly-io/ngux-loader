@@ -14,8 +14,11 @@ module.exports = function(content) {
             return;
         }
         var htmlPath = resourcePath.replace('.ngux', '.html');
-        fs.readFile(htmlPath, 'utf8', function(err, content) {
-            callback(null, content);
+        var jsPath = resourcePath.replace('.ngux', '.js');
+        this.addDependency(path.resolve(htmlPath));
+        this.addDependency(path.resolve(jsPath));
+        fs.readFile(htmlPath, 'utf8', function(err, htmlContent) {
+            callback(null, htmlContent);
         });
-    });
+    }.bind(this));
 };
