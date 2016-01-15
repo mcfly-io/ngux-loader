@@ -1,0 +1,3 @@
+<Panel>
+    <Text [Value]="myvalue" />
+</Panel>

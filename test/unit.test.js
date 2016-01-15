@@ -18,7 +18,7 @@ describe('ngux-loader', function() {
             });
     });
 
-    it('should process simple correctly', function(done) {
+    it('with simple should succeed', function(done) {
         var filename = 'file.simple';
         testHelper.processAndCheck(filename)
             .then(function() {
@@ -27,4 +27,15 @@ describe('ngux-loader', function() {
             .catch(done);
     });
 
+    it('with no selector should fail', function(done) {
+        var filename = 'noselector.simple';
+        testHelper.processAndCheck(filename)
+            .then(function() {
+                done('should throw an error');
+            })
+            .catch(function(err) {
+                should.exists(err);
+                done();
+            });
+    });
 });
