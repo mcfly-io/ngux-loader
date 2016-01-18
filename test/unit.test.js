@@ -48,4 +48,30 @@ describe('ngux-loader', function() {
             .catch(done);
     });
 
+    it('with spaces1 should succeed', function(done) {
+        var filename = 'spaces1';
+        testHelper.processAndCheck(filename)
+            .then(function() {
+                done();
+            })
+            .catch(done);
+    });
+
+    it('with spaces2 should succeed', function(done) {
+        var filename = 'spaces2';
+        testHelper.processAndCheck(filename)
+            .then(function() {
+                done();
+            })
+            .catch(done);
+    });
+
+    it('with comments1 should succeed', function(done) {
+        var filename = 'comments1';
+        testHelper.processAndCheck(filename)
+            .then(function() {
+                done();
+            })
+            .catch(done);
+    });
 });

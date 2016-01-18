@@ -1,0 +1,5 @@
+<Panel ux:Class="NGUXApp" Background="{var0}">
+    <StackPanel Items="{children0}">
+        <Rectangle ux:Case="NGUXApp_Scope1" Fill="Red" Height="30" Margin="10" />
+    </StackPanel>
+</Panel>
