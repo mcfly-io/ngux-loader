@@ -29,10 +29,11 @@ module.exports = function(content) {
             return;
         }
         var htmlPath = getOutputPath(resourcePath, outputDir, '.html');
-        var jsPath = getOutputPath(resourcePath, outputDir, '.js');
+        //var jsPath = getOutputPath(resourcePath, outputDir, '.js');
 
-        this.addDependency(path.resolve(htmlPath));
-        this.addDependency(path.resolve(jsPath));
+        // causes infinite loop so i deactivated those 2 lines
+        //this.addDependency(path.resolve(htmlPath));
+        //this.addDependency(path.resolve(jsPath));
         fs.readFile(htmlPath, 'utf-8', function(err, htmlContent) {
             callback(null, htmlContent);
         });
