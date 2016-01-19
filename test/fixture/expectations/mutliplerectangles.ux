@@ -2,6 +2,6 @@
     <StackPanel Items="{children0}" MatchKey="type">
         <Rectangle ux:Case="NGUXApp_Scope1" Fill="Red" Height="30" Margin="10" />
         <Rectangle ux:Case="NGUXApp_Scope2" Fill="Red" Height="30" Margin="10" />
-        <NGUXChild ux:Case="NGUXChild" />
+        <NGUXChild ux:Case="NGUXChild_Scope0" />
     </StackPanel>
 </Panel>
