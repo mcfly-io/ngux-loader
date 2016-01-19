@@ -1,0 +1,7 @@
+<Panel ng:Selector="NGUXApp" [Background]="backgroundColor">
+    <StackPanel>
+        <Rectangle *ngFor="#f of foo" Fill="Red" Height="30" Margin="10" />
+        <Rectangle *ngFor="#f of foo" Fill="Red" Height="30" Margin="10" />
+        <ng:NGUXChild />
+    </StackPanel>
+</Panel>

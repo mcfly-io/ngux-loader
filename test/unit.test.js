@@ -74,4 +74,13 @@ describe('ngux-loader', function() {
             })
             .catch(done);
     });
+
+    it('with mutliplerectangles should succeed', function(done) {
+        var filename = 'mutliplerectangles';
+        testHelper.processAndCheck(filename)
+            .then(function() {
+                done();
+            })
+            .catch(done);
+    });
 });
