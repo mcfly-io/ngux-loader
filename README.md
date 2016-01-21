@@ -26,12 +26,12 @@ a sub folder of the source `ngux` file
 ```js
 {
     test: /\.ngux$/,
-    loader: 'html-loader!ngux-loader',
-    query : {
-        subdir : 'ngux'
-    }
+    loader: 'html-loader!ngux-loader?subdir=ngux'
 }
 ```
+
+> **NOTE:**    
+> Defining a query object will not work as we have mulitple loaders
 
 ## License
 
