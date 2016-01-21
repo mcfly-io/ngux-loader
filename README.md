@@ -20,6 +20,18 @@ webpack.config.js
 }
 ```
 
+This loader supports a `subdir` query string when you need to save the resulting files in
+a sub folder of the source `ngux` file
+
+```js
+{
+    test: /\.ngux$/,
+    loader: 'html-loader!ngux-loader',
+    query : {
+        subdir : 'ngux'
+    }
+}
+```
 
 ## License
 

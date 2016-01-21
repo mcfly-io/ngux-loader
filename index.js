@@ -1,6 +1,7 @@
 'use strict';
 var path = require('path');
 var fs = require('fs');
+var loaderUtils = require('loader-utils');
 
 var getOutputPath = function(filename, outputDir, extension) {
     var res = path.join(outputDir, path.basename(filename));
@@ -18,8 +19,11 @@ module.exports = function(content) {
     var resourcePath = this.resourcePath;
 
     var exec = require('child_process').exec;
-    var outputDir = path.dirname(this.resourcePath);
-
+    var outputDir = path.dirname(resourcePath);
+    var loaderOptions = loaderUtils.parseQuery(this.query);
+    if (loaderOptions.subdir) {
+        outputDir = path.join(outputDir, loaderOptions.subdir);
+    }
     if (this.options.outputDir) {
         outputDir = this.options.outputDir;
     }
