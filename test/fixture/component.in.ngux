@@ -1,0 +1,3 @@
+<Panel ng:Selector="MyApp">
+    <ng:MissionCard [ng:mission]="m"></ng:MissionCard>
+</Panel>

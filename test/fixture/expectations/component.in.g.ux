@@ -1,0 +1,3 @@
+<Panel Items="{children0}" MatchKey="type" ux:Class="MyApp">
+    <MissionCard ux:Case="MyApp_Scope1" />
+</Panel>

@@ -83,4 +83,13 @@ describe('ngux-loader', function() {
             })
             .catch(done);
     });
+
+    it('with component.in should succeed', function(done) {
+        var filename = 'component.in';
+        testHelper.processAndCheck(filename)
+            .then(function() {
+                done();
+            })
+            .catch(done);
+    });
 });
