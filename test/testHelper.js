@@ -22,7 +22,7 @@ function readFiles(folder, name) {
     return Promise.all([
         readFile(path.join(folder, name + '.html')),
         readFile(path.join(folder, name + '.js')),
-        readFile(path.join(folder, name + '.ux'))
+        readFile(path.join(folder, name + '.g.ux'))
     ]);
 }
 
