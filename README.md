@@ -1,5 +1,21 @@
-# file loader for webpack
+# ngux-loader for webpack
 [![Build Status](https://travis-ci.org/mcfly-io/ngux-loader.svg?branch=master)](https://travis-ci.org/mcfly-io/ngux-loader)
+
+## Dependencies
+This loader execute a dot.net exe (https://github.com/fusetools/NGUX).    
+As such it requires mono when using a non windows platform.   
+To install mono using Homebrew execute the following instruction:
+
+To install Homebrew open a Terminal and paste in the following command
+```sh
+ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+```
+Then to install mono, execute:
+```sh
+brew update && brew install mono
+```
+
+
 
 ## Usage
 

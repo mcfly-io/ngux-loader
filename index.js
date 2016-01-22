@@ -1,6 +1,7 @@
 'use strict';
 var path = require('path');
 var fs = require('fs');
+var os = require('os');
 var loaderUtils = require('loader-utils');
 
 var getOutputPath = function(filename, outputDir, extension) {
@@ -27,7 +28,7 @@ module.exports = function(content) {
     if (this.options.outputDir) {
         outputDir = this.options.outputDir;
     }
-    exec('mono ' + folder + ' ' + resourcePath + ' ' + outputDir, function(err, stdout, stderr) {
+    exec((os.platform() === 'win32' ? '' : 'mono ') + folder + ' ' + resourcePath + ' ' + outputDir, function(err, stdout, stderr) {
         if (err) {
             callback(err);
             return;

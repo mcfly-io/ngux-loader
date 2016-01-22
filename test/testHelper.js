@@ -4,7 +4,18 @@ global.Promise = require('bluebird');
 var path = require('path');
 var should = require('should');
 var fs = require('fs');
+var os = require('os');
 var nguxLoader = require('../');
+
+function FixWindowsReturnCarriage(content) {
+    if (!content) {
+        return content;
+    }
+    if (os.platform() === 'win32') {
+        content = content.replace(/\r\n/g, '\n');
+    }
+    return content;
+}
 
 function readFile(filename) {
     return new Promise(function(resolve, reject) {
@@ -12,7 +23,7 @@ function readFile(filename) {
             if (err) {
                 reject(err);
             } else {
-                resolve(data);
+                resolve(FixWindowsReturnCarriage(data));
             }
         });
     });
@@ -63,7 +74,7 @@ function processAndCheck(filename) {
             });
         })
         .then(function(content) {
-            htmlContent = content;
+            htmlContent = FixWindowsReturnCarriage( content);
             should.exists(htmlContent);
         })
         .then(function() {
