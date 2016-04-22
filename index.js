@@ -28,7 +28,7 @@ module.exports = function(content) {
     // }
 
     // make sure that the subdir is a truthy so we can remove it 
-    outputDir = path.join(outputDir, this.options.subdir ||  loaderOptions.subdir || 'ngux'); 
+    outputDir = path.join(outputDir, this.options.subdir || loaderOptions.subdir || 'ngux');
     if (this.options.outputDir || loaderOptions.outputDir) {
         outputDir = this.options.outputDir || loaderOptions.outputDir;
     }
@@ -47,12 +47,58 @@ module.exports = function(content) {
         var uxName = path.basename(uxPath);
         var resourceDir = path.dirname(resourcePath);
         var uxContext = path.relative(this._compilation.options.context, path.join(resourceDir, uxName));
+        var res = {
+            html: null,
+            js: null,
+            make: function(js, html) {
+                return js + '; module.exports = ' + JSON.stringify(html) + ';'
+            }
+        };
         fs.readFile(htmlPath, 'utf-8', function(err, htmlContent) {
+            if (err) {
+                throw err;
+                // this._compilation.errors.push(err);
+            }
+            res.html = htmlContent;
             fs.readFile(jsPath, 'utf-8', function(err, jsContent) {
+                if (err) {
+                    throw err;
+                    // this._compilation.errors.push(err);
+                }
+                res.js = jsContent;
                 fs.readFile(uxPath, null, function(err, uxContent) {
+                    if (err) {
+                        throw err;
+                        // this._compilation.errors.push(err);
+                    }
                     this.emitFile(uxContext, uxContent);
-                    fs.rmdir(outputDir, null, function(err) {
-                        callback(null, jsContent + '; module.exports = ' + JSON.stringify(htmlContent) + ';');
+                    fs.unlink(htmlPath, function(err) {
+                        if (err) {
+                            throw err;
+                            // this._compilation.errors.push(err);
+                        }
+                        fs.unlink(jsPath, function(err) {
+                            if (err) {
+                                throw err;
+                                // this._compilation.errors.push(err);
+                            }
+                            fs.unlink(uxPath, function(err) {
+                                if (err) {
+                                    throw err;
+                                    // this._compilation.errors.push(err);
+                                }
+                                fs.rmdir(outputDir, function(err, files) {
+                                    if (err && err.code === 'ENOTEMPTY') {
+                                        this._compilation.warnings.push(err);
+                                    } else if (err) {
+                                        throw err;
+                                        // this._compilation.errors.push(err);
+                                    } else {
+                                        callback(null, res.make(res.js, res.html));
+                                    }
+                                }.bind(this));
+                            }.bind(this));
+                        }.bind(this));
                     }.bind(this));
                 }.bind(this));
             }.bind(this));
