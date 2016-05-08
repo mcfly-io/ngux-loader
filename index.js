@@ -157,7 +157,7 @@ module.exports = function(content) {
         })
         // clean the dir
         .then(function(result) {
-            if (skipClean) {
+            if (skipClean || noEmitUx) {
                 return result;
             }
             return clean(paths.out.dir, {
