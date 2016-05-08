@@ -112,9 +112,9 @@ module.exports = function(content) {
     // loader query options
     var subdir = loaderOptions.subdir;
     var skipClean = loaderOptions.skipClean;
-    var outputRoot = loaderOptions.outputRoot;
     var noEmitUx = loaderOptions.noEmitUx;
     var useOutput = loaderOptions.useOutput || noEmitUx;
+    var outputRoot = loaderOptions.outputRoot;
 
     var emitFile = this.emitFile.bind(this);
     var emitWarning = this.emitWarning.bind(this);
