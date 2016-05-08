@@ -8,6 +8,7 @@
     "bin"
   ],
   "dependencies": {
+    "bluebird": "^3.3.5",
     "loader-utils": "~0.2.5"
   },
   "devDependencies": {
