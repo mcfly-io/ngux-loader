@@ -6,8 +6,14 @@ var os = require('os');
 var loaderUtils = require('loader-utils');
 var helper = require('./lib/helper.js');
 
-module.exports = function(content) {
-    if (!this.webpack || !this.test) {
+/**
+ * The nguxLoader function
+ * @namespace
+ * @param {String} content     - The contents of the `*.ngux` file
+ * @returns {Promise<String>}  - The module constructed from the `*.ngux` file; it runs the contents of the generated `*.js` file and then exports the contents of the generated `*.html` file as a string.
+ */
+var nguxLoader = function(content) {
+    if (!this.webpack && !this.test) {
         this.emitError('NguxLoader currently only supports compiling by webpack.');
         return 'module.exports = ' + JSON.stringify(content) + ';';
     }
@@ -23,13 +29,11 @@ module.exports = function(content) {
         multiArgs: true
     });
 
-    // webpack options
-    var resourcePath = this.resourcePath;
-    var context = this.options.context;
     var output = this.options.output.path;
 
-    var loaderOptions = loaderUtils.parseQuery(this.query);
-    // loader query options
+    var loaderOptions = this.test ? this.testConfig : loaderUtils.parseQuery(this.query);
+
+    // loader options
     var subdir = loaderOptions.subdir;
     var skipClean = loaderOptions.skipClean;
     var noEmitUx = loaderOptions.noEmitUx;
@@ -42,11 +46,32 @@ module.exports = function(content) {
         html: '',
         js: ''
     };
+
+    /**
+     * @type {ngux/helper.Paths} paths
+     * @see ngux/helper.Paths
+     */
     var paths;
-    return helper.getPaths(resourcePath, context, output, subdir, useOutput, outputRoot)
+
+    /**
+     * @type {ngux/helper.PathsConfig} pathsConfig
+     * @see ngux/helper.PathsConfig
+     */
+    var pathsConfig = {
+        resourcePath: this.resourcePath,
+        context: this.options.context,
+        output: output, // this.options.output.path
+        subdir: subdir,
+        useOutput: useOutput,
+        outputRoot: outputRoot
+    };
+
+    return Bluebird.try(function() {
+            return helper.getPaths(pathsConfig);
+        })
         .then(function(p) {
             paths = p;
-            return exec((os.platform() === 'win32' ? '' : 'mono ') + paths.ngux + ' ' + paths.resource + ' ' + paths.out.dir);
+            return exec((os.platform() === 'win32' ? '' : 'mono ') + paths.ngux + ' ' + paths.resourcePath + ' ' + paths.out.dir);
         })
         // read the files
         .then(function(stdarr /* : [stdout, stderr]*/ ) {
@@ -77,7 +102,7 @@ module.exports = function(content) {
         })
         // clean the dir
         .then(function(result) {
-            if (skipClean || noEmitUx) {
+            if (skipClean || noEmitUx || subdir === '') {
                 return result;
             }
             return fs.rmdirAsync(paths.out.dir)
@@ -98,3 +123,5 @@ module.exports = function(content) {
         })
         .asCallback(callback);
 };
+
+module.exports = nguxLoader;
