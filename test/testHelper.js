@@ -37,45 +37,64 @@ function readFiles(folder, name) {
     ]);
 }
 
-function run(resourcePath, cb) {
+function run(context) {
     var content = new Buffer('1234');
-    var context = {
-        resourcePath: resourcePath,
-        cacheable: function() {},
-        async: function() {
-            return cb;
-        },
-        options: {
-            outputDir: './test/fixture/results'
-        },
-        addDependency: function() {
-
-        }
-    };
     nguxLoader.call(context, content);
 }
 
-function processAndCheck(filename) {
+function processAndCheck(filename, testConfig) {
+    testConfig = testConfig || {
+        subdir: '', // no subdir, look directly in pathResults for files
+        skipClean: true, // do not clean up gnerated files so tests can read them
+        useOutput: true // put generated files in pathResults
+    };
     var pathFixture = './test/fixture';
     var pathExpectations = './test/fixture/expectations';
     var pathResults = './test/fixture/results';
     var resourcePath = path.join(pathFixture, filename + '.ngux');
-    var htmlContent;
+    var moduleContent;
     var fileResults;
     var fileExpectations;
     return new Promise(function(resolve, reject) {
-            run(resourcePath, function(err, success) {
-                if (err) {
-                    reject(err);
-                } else {
-                    resolve(success);
-                }
+            var context = {
+                resourcePath: resourcePath,
+                cacheable: function() {},
+                async: function() {
+                    return function(err, success) {
+                        if (err) {
+                            reject(err);
+                        } else {
+                            resolve(success);
+                        }
+                    };
+                },
+                options: {
+                    context: pathFixture,
+                    output: {
+                        path: pathResults
+                    }
+                },
+                addDependency: function() {
 
-            });
+                },
+                testConfig: testConfig,
+                test: true,
+                emitFile: function(path, content) {
+
+                },
+                emitError: function(msg) {
+                    throw new Error(msg);
+                },
+                emitWarning: function(msg) {
+
+                }
+            };
+
+            run(context);
         })
         .then(function(content) {
-            htmlContent = FixWindowsReturnCarriage( content);
-            should.exists(htmlContent);
+            moduleContent = FixWindowsReturnCarriage(content);
+            should.exists(moduleContent);
         })
         .then(function() {
             // return result files
@@ -95,7 +114,7 @@ function processAndCheck(filename) {
         })
         .then(function() {
             // check that return result from the loader is html
-            fileResults[0].should.be.equal(htmlContent);
+            moduleContent.should.be.equal(fileResults[1] + '; module.exports = ' + JSON.stringify(fileResults[0]) + ';');
         })
         .then(function() {
             // check that all files are identical to expected
