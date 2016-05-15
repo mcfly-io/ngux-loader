@@ -59,14 +59,7 @@ Alternatively, options (see [below](#options)) can be passed to the loader insid
 |`noEmitUx` | If true, the generated `*.g.ux` file will not be emitted for webpack to create in the output directory. Because the resulting fuse code would break without this file, we force the `useOutput` option to true if this is set.|`false`|
 |`outputRoot`† | This will change the root path that will be used with the context-relative resource path + the `subdir` as the directory for the generated files. If `outputRoot` is an absolute path, it is used as-is, otherwise the provided path is resolved relative to the current working directory, usually the project's root folder. Example: if the loader is working on `client/scripts/app/components/main/main.ngux`, the context-relative resource path is `components/main/main.ngux` and the `subdir` will point to `components/main/ngux/`, so the default folder where the files would be generated will be `client/scripts/app/components/main/ngux/`, or `dist/app/dev/components/main/ngux/` if `useOutput` is `true`. If `outputRoot` is set to `'ux-files'`, the files will be generated `ux-files/components/main/ngux/`.|`false` |
 
->† **NB**: The `outputRoot` option overrides `useOutput`. Caution is required when it is used in combination with `noEmitUx = true`, as your app might break if you do not make sure Fuse knows about the new locations of the `*.g.ux` files.
-
-```js
-{
-    test: /\.ngux$/,
-    loader: 'html-loader!ngux-loader?subdir=ngux'
-}
-```
+>***N.B.*:** The `outputRoot` option overrides `useOutput`. Caution is required when it is used in combination with `noEmitUx = true`: if you do not make sure Fuse knows about the new locations of the `*.g.ux` files, your app might break.
 
 > **NOTE:**    
 > Defining a query object will not work as we have mulitple loaders

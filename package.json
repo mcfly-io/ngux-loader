@@ -5,7 +5,8 @@
   "description": "file loader module for webpack",
   "files": [
     "index.js",
-    "bin"
+    "bin",
+    "lib"
   ],
   "dependencies": {
     "bluebird": "^3.3.5",
