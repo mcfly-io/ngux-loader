@@ -1,6 +1,6 @@
 {
   "name": "ngux-loader",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "author": "Avi Haiat @thaiat",
   "description": "file loader module for webpack",
   "files": [
